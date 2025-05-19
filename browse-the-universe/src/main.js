@@ -1,48 +1,39 @@
-import './style.css';
-import { fetchAPOD } from "./api/api";
+// Import the fetchAPOD function from your api.js file
+import { fetchAPOD } from "./api/api"; // Ensure this path is correct
 
-const yearDropdown = () => {
-    const yearSelect = document.getElementById('birthYear');
-    const startYear = 1995; // Start year
-    const endYear = 2025;   // End year
+const displayUniverseImage = async () => {
+    const dateInput = document.getElementById("birthYear").value; // Get the value from input
+    console.log("Selected Date Input:", dateInput); // Log selected date for debugging
 
-    // This removes the existing options
-    yearSelect.innerHTML = ''; 
-
-    for (let year = startYear; year <= endYear; year++) {
-        const option = document.createElement('option');
-        option.value = year; // Ensure this matches the selected value type
-        option.textContent = year; 
-        yearSelect.appendChild(option);
+    // Check if the input is empty
+    if (!dateInput) {
+        alert("Please select a birthday.");
+        return; // Exit early if no date selected
     }
-};
 
-// Call yearDropdown on DOMContentLoaded or when needed
-document.addEventListener("DOMContentLoaded", yearDropdown);
+    const selectedDate = new Date(dateInput); // Convert the input to a Date object
+    console.log("Constructed Date:", selectedDate); // Log the constructed Date object
 
-
-const displayUniverseImage = async (year) => {
+    // Ensure the date is valid and on or after June 16, 1995
     const minDate = new Date('1995-06-16'); // Minimum valid date
-    const selectedDate = new Date(`${year}-06-16`); // Create date for June 16 of the selected year
-
-    console.log("Selected Year:", year); // Log the selected year
-    console.log("Constructed Date:", selectedDate); // Log the constructed date
-
     if (selectedDate < minDate || isNaN(selectedDate.getTime())) {
-        alert("Please select a year on or after June 16, 1995.");
-        return; // Early exit to prevent fetch call
+        alert("Please select a date on or after June 16, 1995.");
+        return; // Exit early to prevent fetch call
     }
+
+    const formattedDate = selectedDate.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
+    console.log("Formatted Date for Fetch:", formattedDate); // Log the formatted date for API
 
     try {
-        const formattedDate = selectedDate.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
-        console.log("Formatted Date for Fetch:", formattedDate); // Log the formatted date for API
+        // Fetch the data with formatted date
+        const data = await fetchAPOD(formattedDate); 
+        console.log("API Response Data:", data); // Log the API response
 
-        const data = await fetchAPOD(formattedDate); // Pass formatted date to fetchAPOD
         if (data && data.url) {
-            const imageContainer = document.getElementById("universe-image");
+            const imageContainer = document.getElementById("uniphoto");
             imageContainer.innerHTML = `<img src="${data.url}" alt="${data.title || 'Universe Image'}" class="rounded shadow-md mt-4">`;
         } else {
-            console.error("No data returned for the selected date.");
+            console.error("No image URL found in API response.");
             alert("No image available for the selected date.");
         }
     } catch (error) {
@@ -50,3 +41,9 @@ const displayUniverseImage = async (year) => {
         alert("Error fetching image. Please try another date.");
     }
 };
+
+// Attach an event listener to the button to trigger the image display
+document.getElementById("submit").addEventListener("click", displayUniverseImage);
+
+// Optionally, focus the date input when the page loads
+document.getElementById("birthYear").focus();
