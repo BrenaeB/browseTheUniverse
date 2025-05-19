@@ -1,21 +1,21 @@
-// Import the fetchAPOD function from your api.js file
-import { fetchAPOD } from "./api/api"; // Ensure this path is correct
+// Imports the fetchAPOD function from the api.js file
+import { fetchAPOD } from "./api/api"; 
 
 const displayUniverseImage = async () => {
     const dateInput = document.getElementById("birthYear").value; // Get the value from input
     console.log("Selected Date Input:", dateInput); // Log selected date for debugging
 
-    // Check if the input is empty
+    // Checks if the input is empty
     if (!dateInput) {
         alert("Please select a birthday.");
-        return; // Exit early if no date selected
+        return; // A "Please select a birthday" pop up message apppears
     }
 
-    const selectedDate = new Date(dateInput); // Convert the input to a Date object
-    console.log("Constructed Date:", selectedDate); // Log the constructed Date object
+    const selectedDate = new Date(dateInput); // Converts the input to a Date object
+    console.log("Constructed Date:", selectedDate); 
 
     // Ensure the date is valid and on or after June 16, 1995
-    const minDate = new Date('1995-06-16'); // Minimum valid date
+    const minDate = new Date('1995-06-16'); 
     if (selectedDate < minDate || isNaN(selectedDate.getTime())) {
         alert("Please select a date on or after June 16, 1995.");
         return; // Exit early to prevent fetch call
@@ -42,7 +42,7 @@ const displayUniverseImage = async () => {
     }
 };
 
-// Attach an event listener to the button to trigger the image display
+// This will trigger the image display
 document.getElementById("submit").addEventListener("click", displayUniverseImage);
 
 // Optionally, focus the date input when the page loads
