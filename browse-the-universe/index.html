@@ -1,26 +1,23 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Browse the universe</title>
+    <title>Browse the Universe</title>
     <link rel="stylesheet" href="src/style.css">
-  </head>
-  <body>
-<div class="selectbirthday">
-  <h1>Select Your Birthday </h1>
-  <input type="date" id="birthYear" class="birthday-input">
-  <button id="submit" class="submit-button">Browse the Universe!</button>
-  <div id="result" class="result-container"></div>
-</div>
+</head>
+<body>
+    <div class="selectbirthday">
+        <h1>Select Your Birthday</h1>
+        <input type="date" id="birthYear" class="birthday-input" min="1995-06-16" max="2025-12-31">
+        <button id="submit" class="submit-button">Browse the Universe!</button>
+        <div id="result" class="result-container"></div>
+    </div>
 
     <div id="app"></div>
-
-    <div id="uniphoto">
-
-      
-    </div>
+    <div id="uniphoto"></div>
+    
     <script type="module" src="/src/main.js"></script>
-  </body>
+</body>
 </html>
