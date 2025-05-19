@@ -12,16 +12,16 @@ const validDate = (date) => {
 
 export const fetchAPOD = async (date) => {
     try {
-        console.log("Requested Date:", date); // Log the requested date
+        console.log("Requested Date:", date); // Logs the requested date
         
         if (date && !validDate(date)) {
             throw new Error('Date must be on or after June 16, 1995.');
         }
 
         const url = date ? `${nasa_Url}&date=${date}` : nasa_Url; 
-        console.log("Constructed URL:", url); // Log the constructed API URL
+        console.log("Constructed URL:", url); // Logs the constructed API URL
         const response = await axios.get(url);
-        console.log("API Response Data:", response.data); // Log the response data
+        console.log("API Response Data:", response.data); // Logs the response data
 
         return response.data; 
     } catch (error) {
