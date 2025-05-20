@@ -1,4 +1,4 @@
-// In your src/main.js
+
 
 import { fetchAPOD } from "./api/api"; 
 
@@ -11,23 +11,24 @@ const displayUniverseImage = async () => {
         return; 
     }
 
-    const selectedDate = new Date(dateInput); // Create a Date object from the input
-    console.log("Constructed Date:", selectedDate); // Log the constructed date
+    const selectedDate = new Date(dateInput); 
+    console.log("Constructed Date:", selectedDate); 
 
-    const minDate = new Date('1995-06-16'); // Define the minimum date
-    if (selectedDate < minDate || isNaN(selectedDate.getTime())) { // Validate the selected date
+    //specifies the date limitation 
+    const minDate = new Date('1995-06-16'); 
+    if (selectedDate < minDate || isNaN(selectedDate.getTime())) { // Validates the selected date
         alert("Please select a date on or after June 16, 1995."); // Alert user if the date is too early
         return; 
     }
 
-    const formattedDate = selectedDate.toISOString().split('T')[0]; // Format the date for the API
-    console.log("Formatted Date for Fetch:", formattedDate); // Log the formatted date
+    const formattedDate = selectedDate.toISOString().split('T')[0]; 
+    console.log("Formatted Date for Fetch:", formattedDate); 
 
     try {
-        const data = await fetchAPOD(formattedDate); // Call the API with the formatted date
+        const data = await fetchAPOD(formattedDate); 
         
         // Insert the console.log statement here to inspect the data returned by the API
-        console.log("API Response Data:", data); // Log the entire response data to inspect its structure
+        console.log("API Response Data:", data); 
 
         if (data && data.url) {
     const imageContainer = document.getElementById("uniphoto");
@@ -50,4 +51,4 @@ const displayUniverseImage = async () => {
 
 // Attach an event listener to the button to trigger the image display
 document.getElementById("submit").addEventListener("click", displayUniverseImage);
-document.getElementById("birthYear").focus(); // Focus on the date input
+document.getElementById("birthYear").focus(); 
